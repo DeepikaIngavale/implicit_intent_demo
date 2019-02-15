@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(view.getId()==R.id.imgv_add)
         {
             Intent intentName=new Intent(this,SetTextActivity.class);
-            startActivity(intentName);
+            startActivityForResult(intentName, 1);
         }
 
     }
@@ -140,9 +140,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String name = getIntent().getStringExtra("Fname");
                 String mname = getIntent().getStringExtra("Mname");
                 String lname = getIntent().getStringExtra("Lname");
-                /*txt_fname.setText(name);
+                txt_fname.setText(name);
                 txt_mname.setText(mname);
-                txt_lname.setText(lname);*/
+                txt_lname.setText(lname);
                 Toast.makeText(this, ""+name +" "+mname+" "+lname, Toast.LENGTH_SHORT).show();
             }
         }
