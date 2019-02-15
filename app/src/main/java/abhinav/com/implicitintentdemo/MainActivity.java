@@ -1,6 +1,8 @@
 package abhinav.com.implicitintentdemo;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -10,15 +12,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private static final int IMAGE_CAPTURE=100;
+    private static final int RELOAD_IMAGE=100;
     EditText etxt_email,etxt_phone;
     String email,phone;
     ImageView imgv_phone,imgv_email,imgv_pick,imgv_gallery,imgv_camera;
-    protected int REQUEST_CAMERA=1;
-    protected int SELECT_FILE=1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,16 +74,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             phone = etxt_phone.getText().toString().trim();
             openDialer();
         }
+
         if(view.getId()==R.id.imgv_gallery)
         {
-            galleryIntent();
+            Intent getImageIntent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(getImageIntent, RELOAD_IMAGE );
         }
+
         if(view.getId()==R.id.imgv_camera)
         {
-            cameraIntent();
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, 1);
+            intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+            startActivityForResult(intent, IMAGE_CAPTURE);
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode== RELOAD_IMAGE && resultCode == RESULT_OK )
+            {
+                try
+                {
+                     Uri fullPhotoUri = data.getData();
+                    Bitmap selected_gallery=MediaStore.Images.Media.getBitmap(getContentResolver(),fullPhotoUri);
+                    imgv_pick.setImageBitmap(selected_gallery);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+        }
+    }
    protected void openDialer()
     {
         Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -107,16 +138,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return isEmailValid;
     }
-    private void cameraIntent()
-    {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, REQUEST_CAMERA);
-    }
-    private void galleryIntent()
-    {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);//
-        startActivityForResult(Intent.createChooser(intent, "Select File"),SELECT_FILE);
-    }
+
+
 }
