@@ -8,6 +8,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -20,10 +21,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final int IMAGE_CAPTURE=100;
     private static final int RELOAD_IMAGE=101;
-    EditText etxt_email,etxt_phone;
+    EditText etxt_email,etxt_phone,etxt_fname,etxt_mname,etxt_lname;
     String email,phone;
     ImageView imgv_phone,imgv_email,imgv_pick,imgv_gallery,imgv_camera;
-
+    Button btn_send;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +32,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         etxt_email=(EditText)findViewById(R.id.etxt_email);
         etxt_phone=(EditText)findViewById(R.id.etxt_phone);
+        etxt_fname=(EditText)findViewById(R.id.etxt_fname);
+        etxt_mname=(EditText)findViewById(R.id.etxt_mname);
+        etxt_lname=(EditText)findViewById(R.id.etxt_lname);
         imgv_phone=(ImageView) findViewById(R.id.imgv_phone);
         imgv_email=(ImageView) findViewById(R.id.imgv_email);
         imgv_pick=(ImageView) findViewById(R.id.imgv_pick);
         imgv_gallery=(ImageView) findViewById(R.id.imgv_gallery);
         imgv_camera=(ImageView) findViewById(R.id.imgv_camera);
+        btn_send=(Button) findViewById(R.id.btn_send);
 
         imgv_email.setOnClickListener(this);
         imgv_phone.setOnClickListener(this);
         imgv_gallery.setOnClickListener(this);
         imgv_camera.setOnClickListener(this);
+        btn_send.setOnClickListener(this);
     }
 
     @Override
@@ -69,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
         }
+
         if(view.getId()==R.id.imgv_phone)
         {
             phone = etxt_phone.getText().toString().trim();
@@ -85,6 +92,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent, IMAGE_CAPTURE);
+        }
+        if(view.getId()==R.id.btn_send)
+        {
+            Intent intentName=new Intent(MainActivity.this,SetTextActivity.class);
+            intentName.putExtra("Fname",""+etxt_fname.getText().toString().trim());
+            intentName.putExtra("Mname",""+etxt_mname.getText().toString().trim());
+            intentName.putExtra("Lname",""+etxt_lname.getText().toString().trim());
+            startActivity(intentName);
         }
     }
 
