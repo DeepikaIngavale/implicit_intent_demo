@@ -5,23 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SetTextActivity">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/txt_fname"
+        <EditText
+            android:id="@+id/etxt_fname"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/txt_mname"
+            android:layout_height="wrap_content"
+            android:hint="First Name"/>
+        <EditText
+            android:id="@+id/etxt_mname"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/txt_lname"
+            android:layout_height="wrap_content"
+            android:hint="Middle Name"/>
+        <EditText
+            android:id="@+id/etxt_lname"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Last Name"/>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
