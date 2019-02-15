@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int IMAGE_CAPTURE=100;
-    private static final int RELOAD_IMAGE=100;
+    private static final int RELOAD_IMAGE=101;
     EditText etxt_email,etxt_phone;
     String email,phone;
     ImageView imgv_phone,imgv_email,imgv_pick,imgv_gallery,imgv_camera;
@@ -84,31 +84,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(view.getId()==R.id.imgv_camera)
         {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, 1);
-            intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
             startActivityForResult(intent, IMAGE_CAPTURE);
         }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    protected void onActivityResult(int requestCode,int resultCode,Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode== RELOAD_IMAGE && resultCode == RESULT_OK )
+        if (resultCode==RESULT_OK)
+        {
+
+            switch(requestCode)
             {
-                try
-                {
-                     Uri fullPhotoUri = data.getData();
-                    Bitmap selected_gallery=MediaStore.Images.Media.getBitmap(getContentResolver(),fullPhotoUri);
-                    imgv_pick.setImageBitmap(selected_gallery);
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
+                case RELOAD_IMAGE:
+                    try
+                    {
+                        Uri selectedImage=data.getData();
+                        Bitmap selected_img_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                        imgv_pick.setImageBitmap(selected_img_bitmap);
+
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                    break;
+                case IMAGE_CAPTURE :
+
+                    Bundle extras = data.getExtras();
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+                    imgv_pick.setImageBitmap(imageBitmap);
+                    break;
+            }
 
         }
+
     }
    protected void openDialer()
     {
