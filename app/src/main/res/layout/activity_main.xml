@@ -65,12 +65,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:divider="@android:color/black"
             android:weightSum="1">
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:id="@+id/imgv_pick"
+                android:background="@android:color/darker_gray"
                 android:layout_weight="0.1" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,13 +79,13 @@
                 android:layout_weight="0.9">
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:id="@+id/imgv_gallery"
 
                     android:src="@drawable/ic_collections_black_24dp"/>
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:id="@+id/imgv_camera"
                     android:src="@drawable/ic_camera_alt_black_24dp"/>
             </LinearLayout>

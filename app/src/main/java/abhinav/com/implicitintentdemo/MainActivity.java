@@ -2,6 +2,7 @@ package abhinav.com.implicitintentdemo;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,8 +15,10 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     EditText etxt_email,etxt_phone;
-    String email,emailPattern,phone;
-    ImageView imgv_phone,imgv_email;
+    String email,phone;
+    ImageView imgv_phone,imgv_email,imgv_pick,imgv_gallery,imgv_camera;
+    protected int REQUEST_CAMERA=1;
+    protected int SELECT_FILE=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +28,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         etxt_phone=(EditText)findViewById(R.id.etxt_phone);
         imgv_phone=(ImageView) findViewById(R.id.imgv_phone);
         imgv_email=(ImageView) findViewById(R.id.imgv_email);
+        imgv_pick=(ImageView) findViewById(R.id.imgv_pick);
+        imgv_gallery=(ImageView) findViewById(R.id.imgv_gallery);
+        imgv_camera=(ImageView) findViewById(R.id.imgv_camera);
 
         imgv_email.setOnClickListener(this);
         imgv_phone.setOnClickListener(this);
+        imgv_gallery.setOnClickListener(this);
+        imgv_camera.setOnClickListener(this);
     }
 
     @Override
@@ -61,7 +69,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             phone = etxt_phone.getText().toString().trim();
             openDialer();
         }
-
+        if(view.getId()==R.id.imgv_gallery)
+        {
+            galleryIntent();
+        }
+        if(view.getId()==R.id.imgv_camera)
+        {
+            cameraIntent();
+        }
     }
 
    protected void openDialer()
@@ -91,5 +106,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             isEmailValid = true;
         }
         return isEmailValid;
+    }
+    private void cameraIntent()
+    {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_CAMERA);
+    }
+    private void galleryIntent()
+    {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);//
+        startActivityForResult(Intent.createChooser(intent, "Select File"),SELECT_FILE);
     }
 }
