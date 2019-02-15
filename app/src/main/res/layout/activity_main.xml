@@ -53,31 +53,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:weightSum="2">
+        android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Pick Image"
             android:gravity="center"
-            android:layout_weight="1"/>
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:divider="@android:color/black"
+            android:weightSum="1">
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/imgv_pick"/>
+                android:id="@+id/imgv_pick"
+                android:layout_weight="0.1" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_weight="0.9">
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/imgv_gallery"
+
                     android:src="@drawable/ic_collections_black_24dp"/>
                 <ImageView
                     android:layout_width="match_parent"
