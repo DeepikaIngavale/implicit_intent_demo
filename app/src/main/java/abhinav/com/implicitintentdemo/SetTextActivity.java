@@ -9,7 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SetTextActivity extends AppCompatActivity implements View.OnClickListener {
+public class SetTextActivity extends AppCompatActivity implements View.OnClickListener
+{
+    private static final int SECOND_ACTIVITY_REQUEST_CODE=102;
     Button btn_backpress;
     EditText etxt_fname,etxt_mname,etxt_lname;
     @Override
@@ -36,4 +38,21 @@ public class SetTextActivity extends AppCompatActivity implements View.OnClickLi
         setResult(RESULT_OK, intent);
         finish();
     }
+
+   /* @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Check that it is the SecondActivity with an OK result
+        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+
+                // Get String data from Intent
+                String returnString = data.getStringExtra("Fname");
+
+                // Set text view with string
+
+            }
+        }
+    }*/
 }

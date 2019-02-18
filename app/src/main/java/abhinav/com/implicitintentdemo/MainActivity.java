@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(view.getId()==R.id.imgv_add)
         {
             Intent intentName=new Intent(this,SetTextActivity.class);
-            startActivityForResult(intentName, 1);
+            startActivityForResult(intentName, ADD_DATA);
         }
 
     }
@@ -133,9 +133,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 imgv_pick.setImageBitmap(imageBitmap);
         }
-        if(resultCode==RESULT_OK)
+        if(requestCode==ADD_DATA)
         {
-            if(requestCode==ADD_DATA)
+            if(resultCode==RESULT_OK)
             {
                 String name = getIntent().getStringExtra("Fname");
                 String mname = getIntent().getStringExtra("Mname");
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 txt_fname.setText(name);
                 txt_mname.setText(mname);
                 txt_lname.setText(lname);
-                Toast.makeText(this, ""+name +" "+mname+" "+lname, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, ""+name+" "+mname+" "+lname, Toast.LENGTH_SHORT).show();
             }
         }
     }
