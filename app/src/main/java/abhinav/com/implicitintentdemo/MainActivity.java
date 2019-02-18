@@ -137,13 +137,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             if(resultCode==RESULT_OK)
             {
-                String name = getIntent().getStringExtra("Fname");
-                String mname = getIntent().getStringExtra("Mname");
-                String lname = getIntent().getStringExtra("Lname");
-                txt_fname.setText(name);
-                txt_mname.setText(mname);
-                txt_lname.setText(lname);
-                Toast.makeText(this, ""+name+" "+mname+" "+lname, Toast.LENGTH_SHORT).show();
+                String firstname = data.getStringExtra("Firstname");
+                String middlename = data.getStringExtra("Middlename");
+                String lastname = data.getStringExtra("Lastname");
+                txt_fname.setText(firstname);
+                txt_mname.setText(middlename);
+                txt_lname.setText(lastname);
+                Toast.makeText(this, ""+firstname+""+middlename+""+lastname, Toast.LENGTH_SHORT).show();
             }
         }
     }

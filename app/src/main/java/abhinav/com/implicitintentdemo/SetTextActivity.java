@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class SetTextActivity extends AppCompatActivity implements View.OnClickListener
 {
-    private static final int SECOND_ACTIVITY_REQUEST_CODE=102;
+   // private static final int SECOND_ACTIVITY_REQUEST_CODE=102;
     Button btn_backpress;
     EditText etxt_fname,etxt_mname,etxt_lname;
     @Override
@@ -32,9 +32,9 @@ public class SetTextActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view)
     {
         Intent intent = new Intent();
-        intent.putExtra("Fname", ""+etxt_fname.getText().toString().trim());
-        intent.putExtra("Mname", ""+etxt_mname.getText().toString().trim());
-        intent.putExtra("Lname", ""+etxt_lname.getText().toString().trim());
+        intent.putExtra("Firstname", ""+etxt_fname.getText().toString().trim());
+        intent.putExtra("Middlename", ""+etxt_mname.getText().toString().trim());
+        intent.putExtra("Lastname", ""+etxt_lname.getText().toString().trim());
         setResult(RESULT_OK, intent);
         finish();
     }
